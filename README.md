@@ -1,24 +1,36 @@
-# ✅ Task Tracker API (Django + DRF)
+# ✅ Task Tracker API (Django + DRF + Celery + Redis)
 
-A simple Django REST Framework-based API for tracking tasks. Create, list, and delete tasks — ideal for trainee-level portfolios or personal use.
+A Django REST Framework-based API to manage tasks and automatically send email reminders before deadlines.
+
+Perfect for trainees showcasing skills in:
+- Python & Django
+- RESTful APIs
+- Background jobs (Celery)
+- Redis
+- Email integration (SMTP)
+- Secure credential handling (.env)
 
 ---
 
 ## 🚀 Features
 
-- Create tasks with title, description, and due date
-- View all tasks (sorted by creation date)
-- Delete a task by ID
-- Clean REST API architecture using Django REST Framework
+- Create, view, and delete tasks
+- Automatically schedule an email reminder **10 minutes before** a task’s due date
+- Uses Celery + Redis for background scheduling
+- Email credentials securely managed with `.env`
 
 ---
 
 ## 🛠️ Technologies Used
 
-- Python
+- Python 3.x
 - Django
 - Django REST Framework
-- SQLite (default) or PostgreSQL (optional)
+- Celery
+- Redis
+- PostgreSQL / SQLite (for local)
+- SMTP (Gmail)
+- `python-decouple` for env config
 - Git + GitHub
 
 ---
@@ -28,14 +40,19 @@ A simple Django REST Framework-based API for tracking tasks. Create, list, and d
 task_tracker/
 ├── tasks/
 │ ├── models.py
-│ ├── serializers.py
 │ ├── views.py
 │ ├── urls.py
+│ ├── serializers.py
+│ └── tasks.py
 ├── task_tracker/
 │ ├── settings.py
 │ ├── urls.py
-├── db.sqlite3
-├── manage.py
-└── README.md
+│ └── celery.py
+├── .env
+├── requirements.txt
+├── README.md
+└── manage.py
 
 ---
+📫 Email Reminder
+When a task is created with a due date, the system will schedule a background task to send an email reminder 10 minutes before the due date.
